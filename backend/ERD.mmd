@@ -1,0 +1,52 @@
+erDiagram
+    USER ||--o{ ENROLLMENT : has
+    USER ||--o{ CONTENT_PROGRESS : tracks
+    USER ||--o{ QUIZ_PROGRESS : tracks
+    
+    COURSE ||--o{ MODULE : contains
+    COURSE ||--o{ ENROLLMENT : "is part of"
+    
+    MODULE ||--o{ CONTENT : contains
+    MODULE ||--o{ QUIZ : contains
+    MODULE ||--|| TEST : "has one"
+    
+    CONTENT ||--o{ CONTENT_PROGRESS : "status for"
+    QUIZ ||--o{ QUIZ_PROGRESS : "status for"
+    
+    ENROLLMENT {
+        int id
+        int user_id
+        int course_id
+        boolean is_completed
+        timestamp enrolled_at
+    }
+
+    CONTENT {
+        int id
+        int module_id
+        string type
+        int order_index
+        text body
+    }
+
+    CONTENT_PROGRESS {
+        int id
+        int user_id
+        int content_id
+        boolean is_completed
+    }
+
+    QUIZ {
+        int id
+        int module_id
+        int order_index
+        float passing_score
+    }
+
+    QUIZ_PROGRESS {
+        int id
+        int user_id
+        int quiz_id
+        float score
+        boolean is_completed
+    }
